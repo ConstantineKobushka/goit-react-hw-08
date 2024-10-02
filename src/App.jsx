@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-      <h1>Phonebook</h1>
+      {/* <h1>Phonebook</h1> */}
       <ContactForm />
       <SearchBox searchValue={searchValue} onSearch={setSearchValue} />
       <ContactList contacts={foundContacts} />
