@@ -1,6 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
+import { nanoid } from 'nanoid';
 
 import styles from './ContactForm.module.css';
 
@@ -9,7 +10,7 @@ const ContactForm = ({ onAddContact }) => {
 
   const handleSubmit = (values, actions) => {
     console.log(values);
-    onAddContact(values);
+    onAddContact({ ...values, id: nanoid() });
     actions.resetForm();
   };
 
