@@ -6,6 +6,8 @@ import ContactList from './components/ContactList/ContactList';
 
 import listcontacts from './listcontacts.json';
 
+import styles from './App.module.css';
+
 function App() {
   function initialContacts() {
     const contactsFromLocalStorage = localStorage.getItem('contactsData');
@@ -35,7 +37,7 @@ function App() {
 
   return (
     <>
-      <h1>Phonebook</h1>
+      <h1 className={styles.title}>Phonebook</h1>
       <ContactForm onAddContact={addContact} />
       <SearchBox searchValue={searchValue} onSearch={setSearchValue} />
       <ContactList contacts={foundContacts} onDelete={deletContact} />

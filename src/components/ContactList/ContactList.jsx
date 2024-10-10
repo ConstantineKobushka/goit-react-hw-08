@@ -5,7 +5,7 @@ import styles from './ContactList.module.css';
 
 const ContactList = ({ contacts, onDelete }) => {
   return (
-    <ul>
+    <ul className={styles.list}>
       {contacts.map((contact) => (
         <Contact
           key={nanoid()}

@@ -5,9 +5,12 @@ import styles from './SearchBox.module.css';
 const SearchBox = ({ searchValue, onSearch }) => {
   const searchInput = useId();
   return (
-    <>
-      <label htmlFor={searchInput}>Find contact by name</label>
+    <div className={styles.searchBox}>
+      <label className={styles.label} htmlFor={searchInput}>
+        Find contact by name
+      </label>
       <input
+        className={styles.input}
         type='text'
         id={searchInput}
         value={searchValue}
@@ -15,7 +18,7 @@ const SearchBox = ({ searchValue, onSearch }) => {
           onSearch(event.target.value);
         }}
       />
-    </>
+    </div>
   );
 };
 

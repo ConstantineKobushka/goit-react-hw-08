@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { ErrorMessage } from 'formik';
@@ -7,6 +8,8 @@ import styles from './ContactForm.module.css';
 
 const ContactForm = ({ onAddContact }) => {
   const initialValues = { name: '', number: '' };
+  const nameId = useId();
+  const numberId = useId();
 
   const handleSubmit = (values, actions) => {
     console.log(values);
@@ -20,18 +23,19 @@ const ContactForm = ({ onAddContact }) => {
   });
 
   return (
-    <Formik
-      className={styles.form}
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={FeedbackSchema}
-    >
-      <Form>
-        <Field className={styles.input} type='text' name='name' />
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={FeedbackSchema}>
+      <Form className={styles.form}>
+        <label className={styles.label} htmlFor={nameId}>
+          Name
+        </label>
+        <Field className={styles.input} type='text' name='name' id={nameId} />
         <ErrorMessage className={styles.error} name='name' component='span' />
-        <Field className={styles.input} type='number' name='number' />
+        <label className={`${styles.label} ${styles.labelNumber}`} htmlFor={numberId}>
+          Number
+        </label>
+        <Field className={styles.input} type='number' name='number' id={numberId} />
         <ErrorMessage className={styles.error} name='number' component='span' />
-        <button className={styles.formbtn} type='submit'>
+        <button className={styles.btn} type='submit'>
           Add contact
         </button>
       </Form>
