@@ -17,7 +17,7 @@ const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     const contactsData = { ...values, id: nanoid() };
-    const action = { type: 'contacts/addContact', payload: contactsData };
+    const action = { type: 'contacts/addContact', payload: contactsData, id: nanoid() };
     dispath(action);
     actions.resetForm();
   };

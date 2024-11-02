@@ -12,7 +12,7 @@ function App() {
   //   return contactsFromLocalStorage ? JSON.parse(contactsFromLocalStorage) : listcontacts;
   // }
 
-  const [searchValue, setSearchValue] = useState('');
+  // const [searchValue, setSearchValue] = useState('');
 
   // useEffect(() => {
   //   localStorage.setItem('contactsData', JSON.stringify(contacts));
@@ -24,7 +24,7 @@ function App() {
     <>
       <h1 className={styles.title}>Phonebook</h1>
       <ContactForm />
-      <SearchBox searchValue={searchValue} onSearch={setSearchValue} />
+      <SearchBox />
       <ContactList />
     </>
   );

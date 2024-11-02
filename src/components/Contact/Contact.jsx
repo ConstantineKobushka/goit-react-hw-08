@@ -6,11 +6,11 @@ import { FaUser } from 'react-icons/fa6';
 import styles from './Contact.module.css';
 
 const Contact = ({ userName, userPhone, userId }) => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
 
-  const deletContact = (contactId) => {
+  const deletContactHandler = (contactId) => {
     const action = { type: 'contacts/deleteContacts', payload: contactId };
-    dispath(action);
+    dispatch(action);
   };
 
   return (
@@ -25,7 +25,7 @@ const Contact = ({ userName, userPhone, userId }) => {
           <p className={styles.textNumber}>{userPhone}</p>
         </div>
       </div>
-      <button className={styles.btn} type='button' onClick={() => deletContact(userId)}>
+      <button className={styles.btn} type='button' onClick={() => deletContactHandler(userId)}>
         Delete
       </button>
     </li>
