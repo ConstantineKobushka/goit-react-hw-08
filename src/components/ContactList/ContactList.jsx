@@ -8,13 +8,20 @@ const ContactList = () => {
   const contacts = useSelector((state) => state.contactsData.contacts);
   const searchValue = useSelector((state) => state.filterValue.filter);
 
-  const foundContacts = contacts.filter((contact) => contact.name.toLowerCase().includes(searchValue.toLowerCase()));
+  const foundContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   return (
     <ul className={styles.list}>
       {foundContacts.length > 0 &&
         foundContacts.map((contact) => (
-          <Contact key={contact.id} userName={contact.name} userPhone={contact.number} userId={contact.id} />
+          <Contact
+            key={contact.id}
+            userName={contact.name}
+            userPhone={contact.number}
+            userId={contact.id}
+          />
         ))}
     </ul>
   );

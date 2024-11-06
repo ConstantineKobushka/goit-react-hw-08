@@ -4,6 +4,8 @@ import listcontacts from '../listcontacts.json';
 
 const INITIAL_STATE = {
   contacts: listcontacts,
+  loading: false,
+  error: null,
 };
 
 const contactsSlice = createSlice({
