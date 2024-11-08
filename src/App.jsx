@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(apiGetContacts());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
