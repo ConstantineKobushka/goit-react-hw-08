@@ -6,7 +6,7 @@ import { ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from 'nanoid';
 
-import { addContacts } from '../../redux/contactsSlice';
+// import { addContacts } from '../../redux/contactsSlice';
 
 import styles from './ContactForm.module.css';
 

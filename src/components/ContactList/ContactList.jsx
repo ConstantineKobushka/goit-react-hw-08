@@ -6,6 +6,8 @@ import styles from './ContactList.module.css';
 
 const ContactList = () => {
   const contacts = useSelector((state) => state.contactsData.contacts);
+  console.log(contacts);
+
   const searchValue = useSelector((state) => state.filterValue.filter);
 
   const foundContacts = contacts.filter((contact) =>
