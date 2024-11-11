@@ -8,28 +8,29 @@ import Loader from './components/Loader/Loader';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 
 import { apiGetContacts } from './redux/contactsOps';
+import { selectError, selectIsLoading } from './redux/contactsSelectors';
 
 import styles from './App.module.css';
 
 function App() {
-  const isLoading = useSelector((state) => state.contactsData.isLoading);
-  const error = useSelector((state) => state.contactsData.error);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(apiGetContacts());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <>
+    <div className={styles.container}>
       <h1 className={styles.title}>Phonebook</h1>
       <ContactForm />
       <SearchBox />
       {isLoading && <Loader />}
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <ContactList />
-    </>
+    </div>
   );
 }
 

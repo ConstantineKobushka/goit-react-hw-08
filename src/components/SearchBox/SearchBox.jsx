@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useId } from 'react';
 
 import { setFilter } from '../../redux/filtersSlice';
+import { selectFilter } from '../../redux/filterSelectors';
 
 import styles from './SearchBox.module.css';
 
 const SearchBox = () => {
   const searchInput = useId();
 
-  const filter = useSelector((state) => state.filterValue.filter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const getSearchValueHandler = (event) => {
     const action = setFilter(event.target.value);
     dispatch(action);
   };
+
   return (
     <div className={styles.searchBox}>
       <label className={styles.label} htmlFor={searchInput}>

@@ -1,19 +1,18 @@
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { FaPhone } from 'react-icons/fa6';
 import { FaUser } from 'react-icons/fa6';
 
-// import { deleteContacts } from '../../redux/contactsSlice';
+import { apiDeleteContacts } from '../../redux/contactsOps';
 
 import styles from './Contact.module.css';
 
 const Contact = ({ userName, userPhone, userId }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const deletContactHandler = (contactId) => {
-  // const action = deleteContacts(contactId);
-  // dispatch(action);
-  // };
+  const deletContactHandler = (contactId) => {
+    dispatch(apiDeleteContacts(contactId));
+  };
 
   return (
     <li className={styles.item}>
