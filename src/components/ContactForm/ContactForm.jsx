@@ -4,10 +4,17 @@ import { useDispatch } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import { ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import toast, { Toaster } from 'react-hot-toast';
 
-import { apiAddContacts } from '../../redux/contactsOps';
+import { apiAddContacts } from '../../redux/contacts/operations';
 
 import styles from './ContactForm.module.css';
+
+const notifyAddContact = () =>
+  toast.success('Contact was added ', {
+    duration: 3000,
+    position: 'top-right',
+  });
 
 const ContactForm = () => {
   const initialValues = { name: '', number: '' };
@@ -18,10 +25,11 @@ const ContactForm = () => {
 
   const handleSubmit = (values, actions) => {
     dispath(apiAddContacts(values));
+    notifyAddContact();
     actions.resetForm();
   };
 
-  const FeedbackSchema = Yup.object().shape({
+  const ContactsSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too Short!')
       .max(50, 'Too Long!')
@@ -36,13 +44,19 @@ const ContactForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      validationSchema={FeedbackSchema}
+      validationSchema={ContactsSchema}
     >
       <Form className={styles.form}>
         <label className={styles.label} htmlFor={nameId}>
           Name
         </label>
-        <Field className={styles.input} type='text' name='name' id={nameId} />
+        <Field
+          className={styles.input}
+          type='text'
+          name='name'
+          id={nameId}
+          placeholder='Name Lastname'
+        />
         <ErrorMessage className={styles.error} name='name' component='span' />
         <label
           className={`${styles.label} ${styles.labelNumber}`}
@@ -55,11 +69,13 @@ const ContactForm = () => {
           type='number'
           name='number'
           id={numberId}
+          placeholder='Phone Number'
         />
         <ErrorMessage className={styles.error} name='number' component='span' />
         <button className={styles.btn} type='submit'>
           Add contact
         </button>
+        <Toaster />
       </Form>
     </Formik>
   );

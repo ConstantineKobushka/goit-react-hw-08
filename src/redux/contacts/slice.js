@@ -1,17 +1,17 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 
-import { selectContacts } from './contactsSelectors';
-import { selectFilter } from './filterSelectors';
+import { selectContacts } from './selectors';
+import { selectFilter } from '../filters/selectors';
 import {
   apiAddContacts,
   apiDeleteContacts,
   apiGetContacts,
-} from './contactsOps';
+} from './operations';
 
 const INITIAL_STATE = {
   contacts: null,
   isLoading: false,
-  error: false,
+  error: null,
 };
 
 const contactsSlice = createSlice({
@@ -21,19 +21,20 @@ const contactsSlice = createSlice({
     builder
       .addCase(apiGetContacts.pending, (state) => {
         state.isLoading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(apiGetContacts.fulfilled, (state, action) => {
-        state.contacts = action.payload;
         state.isLoading = false;
+        state.contacts = action.payload;
       })
       .addCase(apiGetContacts.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
+      //
       .addCase(apiAddContacts.pending, (state) => {
         state.isLoading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(apiAddContacts.fulfilled, (state, action) => {
         state.contacts.push(action.payload);
@@ -43,9 +44,10 @@ const contactsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      //
       .addCase(apiDeleteContacts.pending, (state) => {
         state.isLoading = true;
-        state.error = false;
+        state.error = null;
       })
       .addCase(apiDeleteContacts.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(
@@ -64,8 +66,10 @@ export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {
     const data = Array.isArray(contacts)
-      ? contacts.filter((contact) =>
-          contact.name.toLowerCase().includes(filter.toLowerCase())
+      ? contacts.filter(
+          (contact) =>
+            contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+            contact.number.includes(filter)
         )
       : [];
     return data;
