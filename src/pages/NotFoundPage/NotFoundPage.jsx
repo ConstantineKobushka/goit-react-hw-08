@@ -2,7 +2,7 @@ import css from './NotFoundPage.module.css';
 
 const NotFoundPage = () => {
   return (
-    <div className={css.bg}>
+    <section className={css.section}>
       <picture>
         <source
           media='(max-width: 1440px)'
@@ -11,7 +11,7 @@ const NotFoundPage = () => {
         />
         <img src='/img/not-found-page-bg.jpg' alt='Page not found' />
       </picture>
-    </div>
+    </section>
   );
 };
 
