@@ -1,23 +1,22 @@
 import { useId } from 'react';
 
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
-import { Formik, Form, Field } from 'formik';
-import { ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { apiRegisterUser } from '../../redux/auth/operations';
 
 import Section from '../Section/Section';
+import Container from '../Container/Container';
 
-import { apiRgisterUser } from '../../redux/auth/operations';
-
-import css from './RegistrationForm.module.css';
+import styles from './RegistrationForm.module.css';
 
 const RegistrationForm = () => {
-  const dispatch = useDispatch();
-
   const nameId = useId();
   const emailId = useId();
   const passwordId = useId();
+  const dispatch = useDispatch();
+
   const initialValues = { name: '', email: '', password: '' };
 
   const RegisterSchema = Yup.object().shape({
@@ -33,64 +32,77 @@ const RegistrationForm = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = (values, actions) => {
-    dispatch(apiRgisterUser(values));
+  const onFormSubmit = (values, actions) => {
+    dispatch(apiRegisterUser(values));
     actions.resetForm();
   };
 
   return (
     <Section>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={RegisterSchema}
-      >
-        <Form className={css.form}>
-          <label className={css.label} htmlFor={nameId}>
-            Name
-          </label>
-          <Field
-            className={css.input}
-            type='text'
-            name='name'
-            id={nameId}
-            placeholder='Name Lastname'
-          />
-          <ErrorMessage className={css.error} name='name' component='span' />
-          <label className={`${css.label} ${css.labelItem}`} htmlFor={emailId}>
-            Email
-          </label>
-          <Field
-            className={css.input}
-            type='text'
-            name='email'
-            id={emailId}
-            placeholder='example.email@example.com'
-          />
-          <ErrorMessage className={css.error} name='email' component='span' />
-          <label
-            className={`${css.label} ${css.labelItem}`}
-            htmlFor={passwordId}
-          >
-            Password
-          </label>
-          <Field
-            className={css.input}
-            type='password'
-            name='password'
-            id={passwordId}
-            placeholder='Password'
-          />
-          <ErrorMessage
-            className={css.error}
-            name='password'
-            component='span'
-          />
-          <button className={css.btn} type='submit'>
-            Sing Up
-          </button>
-        </Form>
-      </Formik>
+      <Container>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={RegisterSchema}
+          onSubmit={onFormSubmit}
+        >
+          <Form className={styles.form}>
+            <label className={styles.label} htmlFor={nameId}>
+              Name
+            </label>
+            <Field
+              className={styles.input}
+              type="text"
+              name="name"
+              id={nameId}
+              placeholder="Name Lastname"
+            />
+            <ErrorMessage
+              className={styles.error}
+              name="name"
+              component="span"
+            />
+            <label
+              className={`${styles.label} ${styles.labelItem}`}
+              htmlFor={emailId}
+            >
+              Email
+            </label>
+            <Field
+              className={styles.input}
+              type="text"
+              name="email"
+              id={emailId}
+              placeholder="example.email@example.com"
+            />
+            <ErrorMessage
+              className={styles.error}
+              name="email"
+              component="span"
+            />
+            <label
+              className={`${styles.label} ${styles.labelItem}`}
+              htmlFor={passwordId}
+            >
+              Password
+            </label>
+            <Field
+              className={styles.input}
+              type="password"
+              name="password"
+              id={passwordId}
+              placeholder="Password"
+            />
+            <ErrorMessage
+              className={styles.error}
+              name="password"
+              component="span"
+            />
+            <button className={styles.btn} type="submit">
+              Sing Up
+            </button>
+          </Form>
+        </Formik>
+      </Container>
     </Section>
   );
 };

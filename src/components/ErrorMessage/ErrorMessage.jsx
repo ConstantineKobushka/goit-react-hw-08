@@ -1,7 +1,7 @@
-import css from './ErrorMessage.module.css';
+import styles from './ErrorMessage.module.css';
 
 const ErrorMessage = ({ children }) => {
-  return <p className={css.text}>{children}</p>;
+  return <p className={styles.text}>{children}</p>;
 };
 
 export default ErrorMessage;

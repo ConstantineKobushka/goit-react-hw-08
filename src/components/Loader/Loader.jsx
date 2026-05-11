@@ -1,21 +1,12 @@
-import { Bars } from 'react-loader-spinner';
+import { ScaleLoader } from 'react-spinners';
 
-import css from './Loader.module.css';
+import styles from './Loader.module.css';
 
 const Loader = () => {
   return (
-    <div className={css.loaderWrapper}>
-      <Bars
-        height='80'
-        width='80'
-        color='#4fa94d'
-        ariaLabel='bars-loading'
-        wrapperStyle={{}}
-        wrapperClass=''
-        visible={true}
-      />
+    <div className={styles.wrapper}>
+      <ScaleLoader color="#4fa94d" />
     </div>
   );
 };
-
 export default Loader;

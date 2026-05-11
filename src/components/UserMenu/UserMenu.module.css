@@ -1,12 +1,71 @@
-.wrapper {
+.controls {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 0 15px;
+  gap: 25px;
+  position: relative;
 }
-.btn {
-  padding: 5px;
+.userBtn {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #fafafa;
+  background-color: transparent;
+  border: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.userBtn::first-letter {
+  text-transform: uppercase;
+}
+.logoutBtn {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #fafafa;
+  background-color: #078fff;
+  padding: 5px 10px 7px;
   display: block;
-  border-radius: 5px;
-  border: 1px solid #808080;
+  border-radius: 8px;
+  border: none;
+  position: absolute;
+  left: 0;
+  top: 45px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    top 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.logoutBtn.open {
+  opacity: 1;
+  visibility: visible;
+  top: 55px;
+}
+.icon {
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.icon.rotate {
+  transform: rotate(180deg);
+}
+
+@media only screen and (min-width: 425px) {
+  .controls {
+    gap: 15px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .userBtn {
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .userBtn:hover,
+  .userBtn:focus-visible {
+    color: #cd1f3e;
+  }
+  .logoutBtn:hover,
+  .logoutBtn:focus-visible {
+    background-color: #0866fe;
+  }
 }

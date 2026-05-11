@@ -8,7 +8,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+
+import createWebStorage from 'redux-persist/es/storage/createWebStorage';
 
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -16,19 +17,22 @@ import { contactsReducer } from './contacts/slice';
 import { filterReducer } from './filters/slice';
 import { authReducer } from './auth/slice';
 
+const storage = createWebStorage('local');
+
 const authConfig = {
   key: 'authKey',
   storage,
   whitelist: ['token'],
+  version: 1,
 };
 
 export const store = configureStore({
   reducer: {
-    phoneBook: contactsReducer,
+    contactsData: contactsReducer,
     filterValue: filterReducer,
     auth: persistReducer(authConfig, authReducer),
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

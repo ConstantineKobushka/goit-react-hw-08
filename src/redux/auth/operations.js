@@ -1,75 +1,75 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const authInstans = axios.create({
+const authInstance = axios.create({
   baseURL: 'https://connections-api.goit.global/',
 });
 
-export const setToken = (token) => {
-  authInstans.defaults.headers.common.Authorization = `Bearer ${token}`;
+const setToken = token => {
+  authInstance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
-export const clearToken = () => {
-  authInstans.defaults.headers.common.Authorization = '';
+const cleareToken = () => {
+  authInstance.defaults.headers.common.Authorization = '';
 };
 
-export const apiRgisterUser = createAsyncThunk(
-  'auth/registeUser',
-  async (formData, thunkApi) => {
+export const apiRegisterUser = createAsyncThunk(
+  'auth/register',
+  async (userData, thunkAPI) => {
     try {
-      const { data } = await authInstans.post('/users/signup', formData);
+      const { data } = await authInstance.post('/users/signup', userData);
       setToken(data.token);
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
 export const apiLoginUser = createAsyncThunk(
-  'auth/loginUser',
-  async (formData, thunkApi) => {
+  'auth/login',
+  async (userData, thunkAPI) => {
     try {
-      const { data } = await authInstans.post('/users/login', formData);
+      const { data } = await authInstance.post('/users/login', userData);
       setToken(data.token);
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const apiGetCurrentUser = createAsyncThunk(
-  'auth/getCurrentUser',
-  async (_, thunkApi) => {
-    const state = thunkApi.getState();
+export const apiRefreshUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
     const token = state.auth.token;
 
     if (!token) {
-      return thunkApi.rejectWithValue(
+      return thunkAPI.rejectWithValue(
         'No token provided to refresh user token'
       );
     }
 
     try {
       setToken(token);
-      const { data } = await authInstans.get('/users/current');
+      const { data } = await authInstance.get('/users/current');
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
 
-export const apiLogOutUser = createAsyncThunk(
-  'auth/logOutnUser',
-  async (_, thunkApi) => {
+export const apiLogoutUser = createAsyncThunk(
+  'auth/logout',
+  async (_, thunkAPI) => {
     try {
-      const { data } = await authInstans.post('/users/logout');
-      clearToken();
+      const { data } = await authInstance.post('/users/logout');
+      cleareToken();
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

@@ -1,21 +1,21 @@
 import { useId } from 'react';
 
 import { useDispatch } from 'react-redux';
-
-import { Formik, Form, Field } from 'formik';
-import { ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import Section from '../Section/Section';
+import Container from '../Container/Container';
 
 import { apiLoginUser } from '../../redux/auth/operations';
 
-import css from './LoginForm.module.css';
+import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
   const emailId = useId();
   const passwordId = useId();
+  const dispatch = useDispatch();
+
   const initialValues = { email: '', password: '' };
 
   const LoginSchema = Yup.object().shape({
@@ -27,53 +27,59 @@ const LoginForm = () => {
       .required('Password is required'),
   });
 
-  const handleSubmit = (values, actions) => {
+  const onFormSubmit = (values, actions) => {
     dispatch(apiLoginUser(values));
     actions.resetForm();
   };
 
   return (
     <Section>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={LoginSchema}
-      >
-        <Form className={css.form}>
-          <label className={`${css.label} ${css.labelItem}`} htmlFor={emailId}>
-            Email
-          </label>
-          <Field
-            className={css.input}
-            type='text'
-            name='email'
-            id={emailId}
-            placeholder='example.email@example.com'
-          />
-          <ErrorMessage className={css.error} name='email' component='span' />
-          <label
-            className={`${css.label} ${css.labelItem}`}
-            htmlFor={passwordId}
-          >
-            Password
-          </label>
-          <Field
-            className={css.input}
-            type='password'
-            name='password'
-            id={passwordId}
-            placeholder='Password'
-          />
-          <ErrorMessage
-            className={css.error}
-            name='password'
-            component='span'
-          />
-          <button className={css.btn} type='submit'>
-            Sing In
-          </button>
-        </Form>
-      </Formik>
+      <Container>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={LoginSchema}
+          onSubmit={onFormSubmit}
+        >
+          <Form className={styles.form}>
+            <label className={styles.label} htmlFor={emailId}>
+              Email
+            </label>
+            <Field
+              className={styles.input}
+              type="text"
+              name="email"
+              id={emailId}
+              placeholder="example.email@example.com"
+            />
+            <ErrorMessage
+              className={styles.error}
+              name="email"
+              component="span"
+            />
+            <label
+              className={`${styles.label} ${styles.labelItem}`}
+              htmlFor={passwordId}
+            >
+              Password
+            </label>
+            <Field
+              className={styles.input}
+              type="password"
+              name="password"
+              id={passwordId}
+              placeholder="Password"
+            />
+            <ErrorMessage
+              className={styles.error}
+              name="password"
+              component="span"
+            />
+            <button className={styles.btn} type="submit">
+              Sing In
+            </button>
+          </Form>
+        </Formik>
+      </Container>
     </Section>
   );
 };

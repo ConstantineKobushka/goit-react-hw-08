@@ -1,81 +1,59 @@
 import { useId } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { Formik, Form, Field } from 'formik';
-import { ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import toast, { Toaster } from 'react-hot-toast';
-
-import { apiAddContacts } from '../../redux/contacts/operations';
 
 import styles from './ContactForm.module.css';
 
-const notifyAddContact = () =>
-  toast.success('Contact was added ', {
-    duration: 3000,
-    position: 'top-right',
-  });
+const ContactForm = ({ onAdd }) => {
+  const name = useId();
+  const number = useId();
 
-const ContactForm = () => {
-  const initialValues = { name: '', number: '' };
-  const nameId = useId();
-  const numberId = useId();
-
-  const dispath = useDispatch();
-
-  const handleSubmit = (values, actions) => {
-    dispath(apiAddContacts(values));
-    notifyAddContact();
-    actions.resetForm();
-  };
-
-  const ContactsSchema = Yup.object().shape({
+  const contactSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, 'Too Short!')
       .max(50, 'Too Long!')
       .required('Required'),
     number: Yup.string()
-      .min(3, 'Too Short!')
-      .max(50, 'Too Long!')
+      .matches(/^\d+$/, 'Only digits allowed')
+      .min(10, 'Too Short!')
+      .max(10, 'Too Long!')
       .required('Required'),
   });
+
+  const initialValues = {
+    name: '',
+    number: '',
+  };
+
+  const onFormSubmit = (values, actions) => {
+    onAdd(values);
+    actions.resetForm();
+  };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={ContactsSchema}
+      onSubmit={onFormSubmit}
+      validationSchema={contactSchema}
     >
       <Form className={styles.form}>
-        <label className={styles.label} htmlFor={nameId}>
+        <label className={styles.label} htmlFor={name}>
           Name
         </label>
-        <Field
-          className={styles.input}
-          type='text'
-          name='name'
-          id={nameId}
-          placeholder='Name Lastname'
-        />
-        <ErrorMessage className={styles.error} name='name' component='span' />
+        <Field className={styles.input} type="text" name="name" id={name} />
+        <ErrorMessage className={styles.error} name="name" component="span" />
         <label
           className={`${styles.label} ${styles.labelNumber}`}
-          htmlFor={numberId}
+          htmlFor={number}
         >
           Number
         </label>
-        <Field
-          className={styles.input}
-          type='number'
-          name='number'
-          id={numberId}
-          placeholder='Phone Number'
-        />
-        <ErrorMessage className={styles.error} name='number' component='span' />
-        <button className={styles.btn} type='submit'>
-          Add contact
+        <Field className={styles.input} type="tel" name="number" id={number} />
+        <ErrorMessage className={styles.error} name="number" component="span" />
+        <button className={styles.btn} type="submit">
+          Add contact{' '}
         </button>
-        <Toaster />
       </Form>
     </Formik>
   );

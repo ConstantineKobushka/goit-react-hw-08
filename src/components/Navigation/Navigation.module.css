@@ -1,12 +1,21 @@
-.nav {
+.menu {
   display: flex;
-  gap: 15px;
+  gap: 35px;
 }
 .link {
-  padding: 15px;
-  font-size: 18px;
+  padding: 15px 0;
   font-weight: 500;
 }
 .active {
   color: #cd1f3e;
+}
+
+@media only screen and (min-width: 1440px) {
+  .link {
+    transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .link:hover,
+  .link:focus-visible {
+    color: #cd1f3e;
+  }
 }

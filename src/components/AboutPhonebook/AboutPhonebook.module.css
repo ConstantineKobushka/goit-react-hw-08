@@ -1,0 +1,25 @@
+.subtitle {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.text {
+  margin-bottom: 20px;
+}
+.list {
+  margin-top: 40px;
+}
+.item {
+  position: relative;
+  padding-left: 28px;
+}
+.item::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #078fff;
+  font-weight: 700;
+}
+.item + .item {
+  margin-top: 10px;
+}

@@ -28,3 +28,28 @@ img {
   height: auto;
   display: block;
 }
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.2;
+  color: #fafafa;
+  background-image: url("../public/body-bg.png");
+  background-color: #000000;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
