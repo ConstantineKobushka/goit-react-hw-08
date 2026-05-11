@@ -6,9 +6,6 @@ import { useDispatch } from 'react-redux';
 
 import { apiRegisterUser } from '../../redux/auth/operations';
 
-import Section from '../Section/Section';
-import Container from '../Container/Container';
-
 import styles from './RegistrationForm.module.css';
 
 const RegistrationForm = () => {
@@ -38,72 +35,60 @@ const RegistrationForm = () => {
   };
 
   return (
-    <Section>
-      <Container>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={RegisterSchema}
-          onSubmit={onFormSubmit}
+    <Formik
+      initialValues={initialValues}
+      validationSchema={RegisterSchema}
+      onSubmit={onFormSubmit}
+    >
+      <Form className={styles.form}>
+        <label className={styles.label} htmlFor={nameId}>
+          Name
+        </label>
+        <Field
+          className={styles.input}
+          type="text"
+          name="name"
+          id={nameId}
+          placeholder="Name Lastname"
+        />
+        <ErrorMessage className={styles.error} name="name" component="span" />
+        <label
+          className={`${styles.label} ${styles.labelItem}`}
+          htmlFor={emailId}
         >
-          <Form className={styles.form}>
-            <label className={styles.label} htmlFor={nameId}>
-              Name
-            </label>
-            <Field
-              className={styles.input}
-              type="text"
-              name="name"
-              id={nameId}
-              placeholder="Name Lastname"
-            />
-            <ErrorMessage
-              className={styles.error}
-              name="name"
-              component="span"
-            />
-            <label
-              className={`${styles.label} ${styles.labelItem}`}
-              htmlFor={emailId}
-            >
-              Email
-            </label>
-            <Field
-              className={styles.input}
-              type="text"
-              name="email"
-              id={emailId}
-              placeholder="example.email@example.com"
-            />
-            <ErrorMessage
-              className={styles.error}
-              name="email"
-              component="span"
-            />
-            <label
-              className={`${styles.label} ${styles.labelItem}`}
-              htmlFor={passwordId}
-            >
-              Password
-            </label>
-            <Field
-              className={styles.input}
-              type="password"
-              name="password"
-              id={passwordId}
-              placeholder="Password"
-            />
-            <ErrorMessage
-              className={styles.error}
-              name="password"
-              component="span"
-            />
-            <button className={styles.btn} type="submit">
-              Sing Up
-            </button>
-          </Form>
-        </Formik>
-      </Container>
-    </Section>
+          Email
+        </label>
+        <Field
+          className={styles.input}
+          type="text"
+          name="email"
+          id={emailId}
+          placeholder="example.email@example.com"
+        />
+        <ErrorMessage className={styles.error} name="email" component="span" />
+        <label
+          className={`${styles.label} ${styles.labelItem}`}
+          htmlFor={passwordId}
+        >
+          Password
+        </label>
+        <Field
+          className={styles.input}
+          type="password"
+          name="password"
+          id={passwordId}
+          placeholder="Password"
+        />
+        <ErrorMessage
+          className={styles.error}
+          name="password"
+          component="span"
+        />
+        <button className={styles.btn} type="submit">
+          Sing Up
+        </button>
+      </Form>
+    </Formik>
   );
 };
 

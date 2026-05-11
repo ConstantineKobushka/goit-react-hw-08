@@ -4,9 +4,6 @@ import { useDispatch } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import Section from '../Section/Section';
-import Container from '../Container/Container';
-
 import { apiLoginUser } from '../../redux/auth/operations';
 
 import styles from './LoginForm.module.css';
@@ -33,54 +30,46 @@ const LoginForm = () => {
   };
 
   return (
-    <Section>
-      <Container>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={LoginSchema}
-          onSubmit={onFormSubmit}
+    <Formik
+      initialValues={initialValues}
+      validationSchema={LoginSchema}
+      onSubmit={onFormSubmit}
+    >
+      <Form className={styles.form}>
+        <label className={styles.label} htmlFor={emailId}>
+          Email
+        </label>
+        <Field
+          className={styles.input}
+          type="text"
+          name="email"
+          id={emailId}
+          placeholder="example.email@example.com"
+        />
+        <ErrorMessage className={styles.error} name="email" component="span" />
+        <label
+          className={`${styles.label} ${styles.labelItem}`}
+          htmlFor={passwordId}
         >
-          <Form className={styles.form}>
-            <label className={styles.label} htmlFor={emailId}>
-              Email
-            </label>
-            <Field
-              className={styles.input}
-              type="text"
-              name="email"
-              id={emailId}
-              placeholder="example.email@example.com"
-            />
-            <ErrorMessage
-              className={styles.error}
-              name="email"
-              component="span"
-            />
-            <label
-              className={`${styles.label} ${styles.labelItem}`}
-              htmlFor={passwordId}
-            >
-              Password
-            </label>
-            <Field
-              className={styles.input}
-              type="password"
-              name="password"
-              id={passwordId}
-              placeholder="Password"
-            />
-            <ErrorMessage
-              className={styles.error}
-              name="password"
-              component="span"
-            />
-            <button className={styles.btn} type="submit">
-              Sing In
-            </button>
-          </Form>
-        </Formik>
-      </Container>
-    </Section>
+          Password
+        </label>
+        <Field
+          className={styles.input}
+          type="password"
+          name="password"
+          id={passwordId}
+          placeholder="Password"
+        />
+        <ErrorMessage
+          className={styles.error}
+          name="password"
+          component="span"
+        />
+        <button className={styles.btn} type="submit">
+          Sing In
+        </button>
+      </Form>
+    </Formik>
   );
 };
 
